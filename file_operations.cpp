@@ -9,6 +9,7 @@
 #include <chrono>
 #include "file_operations.h"
 
+namespace {
 class date{
     public:
     int year, month, day;
@@ -47,6 +48,7 @@ class Employee: public date{
     date date;
     int hours;
 };
+}
 
 void add_data(const std::string link){
     int temp_char;
@@ -59,7 +61,7 @@ void add_data(const std::string link){
     file_var.close();
 }
 
-void get_data(const std::string link){
+void get_data(const std::string link, const char separator){
     auto start = std::chrono::steady_clock::now();
     std::vector<Employee> worker;
     std::fstream file_var;
@@ -70,13 +72,13 @@ void get_data(const std::string link){
     while (file_var.good())
     {        
         if(worker.empty()){
-            getline(file_var,emp.Name, ';');
-            getline(file_var,emp.email, ';');
-            getline(file_var,emp.department, ';');
-            getline(file_var,emp.position, ';');
-            getline(file_var,emp.project, ';');
-            getline(file_var,emp.task, ';');
-            getline(file_var,var_data, ';');
+            getline(file_var,emp.Name, separator);
+            getline(file_var,emp.email, separator);
+            getline(file_var,emp.department, separator);
+            getline(file_var,emp.position, separator);
+            getline(file_var,emp.project, separator);
+            getline(file_var,emp.task, separator);
+            getline(file_var,var_data, separator);
             getline(file_var,var, '\n');
             if(var == ""){
                 break;
@@ -86,13 +88,13 @@ void get_data(const std::string link){
             worker.push_back(emp);
         }
         else{
-            getline(file_var,emp.Name, ';');
-            getline(file_var,emp.email, ';');
-            getline(file_var,emp.department, ';');
-            getline(file_var,emp.position, ';');
-            getline(file_var,emp.project, ';');
-            getline(file_var,emp.task, ';');
-            getline(file_var,var_data, ';');
+            getline(file_var,emp.Name, separator);
+            getline(file_var,emp.email, separator);
+            getline(file_var,emp.department, separator);
+            getline(file_var,emp.position, separator);
+            getline(file_var,emp.project, separator);
+            getline(file_var,emp.task, separator);
+            getline(file_var,var_data, separator);
             getline(file_var,var, '\n');
             if(var == ""){
                 break;
@@ -113,11 +115,11 @@ void get_data(const std::string link){
             }
         }
     }
+    file_var.close();
     for(int i=0; i<worker.size(); i++){
         std::cout<<worker[i].Name<<" "<<worker[i].email<<"  "<< worker[i].date <<"  ";
         std::cout<<worker[i].hours<<std::endl;
     }
-    file_var.close();
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed_seconds = end-start;
     std::cout << "Elapsed time: " << elapsed_seconds.count() << "s\n";

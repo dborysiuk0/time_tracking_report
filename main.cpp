@@ -4,7 +4,8 @@
 
 int main(void){
     const std::string link = "employees_tracking.csv";
-    //add_data();
-    get_data(link);
+    const char separator = ';';
+    add_data(link);
+    get_data(link, separator);
     return 0;
 }
