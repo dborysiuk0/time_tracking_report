@@ -66,45 +66,35 @@ void get_data(const std::string link, const char separator){
     std::vector<Employee> worker;
     std::fstream file_var;
     Employee emp;
-    std::string var, var_data; 
+    std::string var, var_data, space; 
     file_var.open(link, std::ios::in);
     std::cout<<"Info out:"<<std::endl;
     while (file_var.good())
-    {        
+    {    
+        getline(file_var,emp.Name, separator);
+        getline(file_var,emp.email, separator);
+        getline(file_var,emp.department, separator);
+        getline(file_var,emp.position, separator);
+        getline(file_var,emp.project, separator);
+        getline(file_var,emp.task, separator);
+        getline(file_var,var_data, separator);
+        getline(file_var,var, '\n');
+        if(var == ""){
+            break;
+        }
+        getline(file_var,space, ' ');
+        if(space == " "){
+            break;
+        }
+        emp.date = convert_data(var_data);
+        emp.hours = std::stoi(var);    
         if(worker.empty()){
-            getline(file_var,emp.Name, separator);
-            getline(file_var,emp.email, separator);
-            getline(file_var,emp.department, separator);
-            getline(file_var,emp.position, separator);
-            getline(file_var,emp.project, separator);
-            getline(file_var,emp.task, separator);
-            getline(file_var,var_data, separator);
-            getline(file_var,var, '\n');
-            if(var == ""){
-                break;
-            }
-            emp.date = convert_data(var_data);
-            emp.hours = std::stoi(var);
             worker.push_back(emp);
         }
         else{
-            getline(file_var,emp.Name, separator);
-            getline(file_var,emp.email, separator);
-            getline(file_var,emp.department, separator);
-            getline(file_var,emp.position, separator);
-            getline(file_var,emp.project, separator);
-            getline(file_var,emp.task, separator);
-            getline(file_var,var_data, separator);
-            getline(file_var,var, '\n');
-            if(var == ""){
-                break;
-            }
-            emp.date = convert_data(var_data);
-            emp.hours = std::stoi(var);
-
             bool push_work = true;
             for(int i=0; i<worker.size(); i++){
-                if(worker[i].date == emp.date && worker[i].email == emp.email && worker[i].project == emp.project && worker[i].task == emp.task ){
+                if(worker[i].date == emp.date && worker[i].position == emp.position ){
                     worker[i].hours += emp.hours;
                     push_work = false;
                     break;
