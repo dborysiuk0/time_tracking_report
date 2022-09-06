@@ -94,7 +94,7 @@ void get_data(const std::string link, const char separator){
         else{
             bool push_work = true;
             for(int i=0; i<worker.size(); i++){
-                if(worker[i].date == emp.date && worker[i].position == emp.position ){
+                if(worker[i].date == emp.date && worker[i].position == emp.position && worker[i].email == emp.email){
                     worker[i].hours += emp.hours;
                     push_work = false;
                     break;
